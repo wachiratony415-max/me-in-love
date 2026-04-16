@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Universe 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   ROOT VARIABLES
+============================================================ */
+:root{
+  --pink:   #ff4ecd;
+  --purple: #6c63ff;
+  --cyan:   #00ffe5;
+  --gold:   #ffcc70;
+  --dark:   #04040f;
+  --glass:  rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.12);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  background: var(--dark);
+  color: white;
+  overflow-x: hidden;
+  font-family: 'DM Sans', sans-serif;
+  cursor: none;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+#cursor{
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--pink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, background 0.3s;
+  mix-blend-mode: screen;
+}
+
+#cursor-trail{
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid var(--pink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: left 0.12s ease, top 0.12s ease, background 0.3s;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   DREAMY ANIMATED BACKGROUND
+============================================================ */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse at 15% 15%, #ff4ecd22, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, #6c63ff22, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, #00ffe522, transparent 55%),
+    radial-gradient(ellipse at 30% 60%, #ffcc7011, transparent 40%);
+  filter: blur(80px);
+  animation: bgDrift 18s infinite alternate ease-in-out;
+  z-index: -2;
+}
+
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  z-index: -1;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@keyframes bgDrift{
+  0%  { transform: scale(1) rotate(0deg); }
+  100%{ transform: scale(1.4) rotate(8deg); }
+}
+
+/* ============================================================
+   NOISE STARS
+============================================================ */
+.stars{
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:-1;
+  overflow:hidden;
+}
+.star{
+  position:absolute;
+  width:2px; height:2px;
+  background:white;
+  border-radius:50%;
+  animation: twinkle var(--d) infinite ease-in-out alternate;
+  opacity: 0;
+}
+@keyframes twinkle{
+  from{ opacity:0; transform:scale(0.5); }
+  to  { opacity:0.8; transform:scale(1.2); }
+}
+
+/* ============================================================
+   MUSIC PLAYER HUD
+============================================================ */
+#musicHUD{
+  position: fixed;
+  bottom: 30px; right: 30px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 10px 20px;
+  transition: 0.4s ease;
+}
+
+#musicHUD:hover{ background: rgba(255,255,255,0.1); }
+
+#musicIcon{
+  font-size: 18px;
+  animation: spin 3s linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+#musicLabel{
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#musicBars{
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+}
+.bar{
+  width: 3px;
+  background: linear-gradient(to top, var(--pink), var(--purple));
+  border-radius: 2px;
+  animation: barPulse var(--s) ease-in-out infinite alternate;
+}
+@keyframes barPulse{
+  from{ height: 3px; }
+  to  { height: 14px; }
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+============================================================ */
+#scrollBar{
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+  z-index: 2000;
+  transition: width 0.1s;
+  box-shadow: 0 0 10px var(--pink);
+}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+nav{
+  position: fixed;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 10px 20px;
+}
+
+nav button{
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  cursor: none;
+  padding: 6px 14px;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+nav button:hover, nav button.active{
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  color: white;
+  box-shadow: 0 0 20px rgba(255,78,205,0.4);
+}
+
+/* ============================================================
+   SECTIONS
+============================================================ */
+section{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 80px 40px 40px;
+  text-align: center;
+  position: relative;
+}
+
+/* ============================================================
+   HERO TITLE
+============================================================ */
+.hero-title{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ff4ecd, #6c63ff, #00ffe5, #ffcc70);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heroShine 6s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes heroShine{
+  0%  { background-position: 0% 50%; filter: hue-rotate(0deg); }
+  100%{ background-position: 300% 50%; filter: hue-rotate(360deg); }
+}
+
+.hero-sub{
+  font-size: 1rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+
+/* ============================================================
+   LOVE LETTER
+============================================================ */
+.love-letter{
+  max-width: 640px;
+  margin: 20px auto;
+  padding: 40px;
+  background: var(--glass);
+  backdrop-filter: blur(30px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow:
+    0 0 60px rgba(255,78,205,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  text-align: left;
+  line-height: 2;
+}
+
+.love-letter h2{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.love-letter p{
+  color: rgba(255,255,255,0.75);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+.reveal{
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  filter: blur(8px);
+  transition: 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+.reveal.show.delay-1{ transition-delay: 0.1s; }
+.reveal.show.delay-2{ transition-delay: 0.2s; }
+.reveal.show.delay-3{ transition-delay: 0.3s; }
+
+/* ============================================================
+   PHOTO GRID
+============================================================ */
+.photo-section{
+  padding: 60px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.photo-section h2{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-style: italic;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.photo-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* ============================================================
+   PHOTO CARDS
+============================================================ */
+.photo-card{
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+  cursor: none;
+}
+
+.photo-card:hover{
+  transform: translateY(-10px) scale(1.02);
+}
+
+.photo-card.ella:hover{
+  box-shadow: 0 30px 80px rgba(255,78,205,0.4);
+}
+
+.photo-card.tony:hover{
+  box-shadow: 0 30px 80px rgba(108,99,255,0.4);
+}
+
+/* THE BLUR SCROLL ANIMATION */
+.photo-card img{
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+  filter: blur(20px) brightness(0.5);
+  transform: scale(1.1);
+  opacity: 0.3;
+  transition:
+    filter 1s cubic-bezier(0.16,1,0.3,1),
+    transform 1s cubic-bezier(0.16,1,0.3,1),
+    opacity 1s ease;
+}
+
+.photo-card.in-view img{
+  filter: blur(0px) brightness(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* photo overlay label */
+.photo-card .label{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 30px 20px 20px;
+  background: linear-gradient(to top, rgba(4,4,15,0.9), transparent);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.9);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.photo-card:hover .label{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ella glow border */
+.photo-card.ella{
+  border-color: rgba(255,78,205,0.3);
+}
+
+/* tony glow border */
+.photo-card.tony{
+  border-color: rgba(108,99,255,0.3);
+}
+
+/* ============================================================
+   COLOR TEXT
+============================================================ */
+.color-text{
+  font-size: 1.1rem;
+  background: linear-gradient(90deg,#ff4ecd,#6c63ff,#00ffe5,#ffcc70,#ff4ecd);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: colorFlow 5s linear infinite;
+}
+@keyframes colorFlow{
+  0%  { background-position: 0%; }
+  100%{ background-position: 300%; }
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn{
+  display: inline-block;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: none;
+  margin: 8px;
+  transition: 0.3s ease;
+  box-shadow: 0 0 30px rgba(255,78,205,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  opacity: 0;
+  transition: 0.4s;
+}
+.btn:hover::before{ opacity: 1; }
+.btn:hover{
+  transform: scale(1.07);
+  box-shadow: 0 0 40px rgba(0,255,229,0.3);
+}
+.btn span{ position: relative; z-index: 1; }
+
+/* ============================================================
+   CHAT PAGE
+============================================================ */
+#messages{
+  width: 100%;
+  max-width: 600px;
+  height: 360px;
+  overflow-y: auto;
+  padding: 20px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  margin-bottom: 16px;
+  scroll-behavior: smooth;
+}
+
+.msg{
+  margin: 10px 0;
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-size: 14px;
+  max-width: 80%;
+  line-height: 1.6;
+  animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes popIn{
+  from{ opacity:0; transform:scale(0.8) translateY(10px); }
+  to  { opacity:1; transform:scale(1) translateY(0); }
+}
+.msg.me{
+  background: linear-gradient(135deg, rgba(255,78,205,0.2), rgba(108,99,255,0.2));
+  border: 1px solid rgba(255,78,205,0.3);
+  margin-left: auto;
+  text-align: right;
+}
+.msg.her{
+  background: linear-gradient(135deg, rgba(0,255,229,0.1), rgba(108,99,255,0.1));
+  border: 1px solid rgba(0,255,229,0.2);
+}
+
+.inputBox{
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+.inputBox textarea{
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  resize: none;
+  height: 54px;
+  backdrop-filter: blur(20px);
+  outline: none;
+  transition: 0.3s;
+}
+.inputBox textarea:focus{
+  border-color: var(--pink);
+  box-shadow: 0 0 20px rgba(255,78,205,0.2);
+}
+
+/* ============================================================
+   VOICE PAGE
+============================================================ */
+#voiceList{
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+.voice{
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin: 10px 0;
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+}
+audio{ width:100%; filter: invert(1) hue-rotate(180deg); }
+
+/* ============================================================
+   FLOATING HEARTS
+============================================================ */
+.heart{
+  position: fixed;
+  pointer-events: none;
+  font-size: 14px;
+  animation: floatUp var(--d) linear forwards;
+  z-index: 500;
+  filter: drop-shadow(0 0 4px var(--pink));
+}
+@keyframes floatUp{
+  from{ transform: translateY(100vh) rotate(0deg); opacity: 1; }
+  to  { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================================
+   FLOATING LOVE TEXT
+============================================================ */
+.floatText{
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%,-50%);
+  padding: 14px 28px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 800;
+  animation: floatTextAnim 3.5s forwards;
+  white-space: nowrap;
+}
+@keyframes floatTextAnim{
+  0%  { opacity:0; transform:translate(-50%,-40%) scale(0.9); }
+  20% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  80% { opacity:1; }
+  100%{ opacity:0; transform:translate(-50%,-65%) scale(1.05); }
+}
+
+/* ============================================================
+   SECTION DIVIDER
+============================================================ */
+.divider{
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  margin: 30px auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:600px){
+  .photo-grid{ grid-template-columns: 1fr; }
+  nav{ gap:4px; padding:8px 12px; }
+  nav button{ font-size:11px; padding:5px 10px; }
+  .hero-title{ font-size: 2.5rem; }
+}
+
+/* ============================================================
+   FADE OUT KEYFRAME
+============================================================ */
+@keyframes fadeOut{
+  0%  { opacity:0; transform:translate(-50%,-40%) scale(0.9); }
+  20% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  100%{ opacity:0; transform:translate(-50%,-60%) scale(1.05); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scrollBar"></div>
+
+<!-- STARS -->
+<div class="stars" id="stars"></div>
+
+<!-- MUSIC HUD -->
+<div id="musicHUD">
+  <span id="musicIcon">🎵</span>
+  <div id="musicBars">
+    <div class="bar" style="--s:0.6s"></div>
+    <div class="bar" style="--s:0.9s"></div>
+    <div class="bar" style="--s:0.5s"></div>
+    <div class="bar" style="--s:0.7s"></div>
+    <div class="bar" style="--s:0.4s"></div>
+  </div>
+  <span id="musicLabel">♪ Our Song</span>
+  <button class="btn" style="padding:6px 14px;margin:0;font-size:12px;" onclick="toggleMusic()"><span id="muteIcon">🔊</span></button>
+</div>
+
+<!-- AUDIO TRACKS (replace src with your actual songs) -->
+<audio id="music1" loop src="/static/audio/song1.mp3"></audio>
+<audio id="music2" loop src="/static/audio/song2.mp3"></audio>
+<audio id="music3" loop src="/static/audio/song3.mp3"></audio>
+
+<!-- NAV -->
+<nav>
+  <button class="active" onclick="goHome()">💖 Home</button>
+  <button onclick="goToChat()">💬 Chat</button>
+  <button onclick="goToVoice()">🎤 Voice</button>
+</nav>
+
+
+<!-- ===================================================
+     HOME PAGE
+=================================================== -->
+<section id="home">
+
+  <h1 class="hero-title">Our Love Universe</h1>
+  <p class="hero-sub">A story written in stars ✦</p>
+
+  <!-- LOVE LETTER 1 -->
+  <div class="love-letter reveal">
+    <h2>💖 A Message for You </h2>
+    <p>I don't really know the perfect way to say this… but I've been carrying these feelings quietly for a while now.</p>
+    <p>Every time I see your smile, talk to you, or even just think about you, something in my heart feels calm… and happy in a way I can't explain.</p>
+    <p>You've become someone very special to me — not just as a friend, but as someone I deeply care about.</p>
+    <p>You have become a drug to me which am adicted to na every time nkikukosa i just feel weak and helpless.</p>
+    <p>i am posesed with your overload beauty, you are everything a man could ever wish for and right now u are all i want and all i wish for.</p>
+    <p>I like you… more than I probably ever showed. And I think a part of me has been hoping you felt the same too.</p>
+    <p>I don't want to rush anything or make things weird between us. I just wanted to be honest… because you deserve truth, not silence.</p>
+    <p>No matter what you feel, I'm really grateful you exist in my life. 💖</p>
+    <p style="margin-top:20px; color:var(--pink); font-style:italic;">— Someone who really cares about you ❤️</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHOTO GRID -->
+  <div class="photo-section">
+    <h2 class="reveal">Our Moments 📸</h2>
+
+    <div class="photo-grid">
+
+      <div class="photo-card ella reveal delay-1" data-label="Her world ✨">
+        <img src="/static/ella1.png" alt="Ella">
+        <div class="label">Her world ✨</div>
+      </div>
+
+      <div class="photo-card tony reveal delay-2" data-label="His universe 🌌">
+        <img src="/static/tony1.png" alt="Tony">
+        <div class="label">His universe 🌌</div>
+      </div>
+
+      <div class="photo-card ella reveal delay-1" data-label="She lights it all 💖">
+        <img src="/static/ella2.png" alt="Ella">
+        <div class="label">She lights it all 💖</div>
+      </div>
+
+      <div class="photo-card tony reveal delay-2" data-label="He'd cross stars for her 🌟">
+        <img src="/static/tony2.png" alt="Tony">
+        <div class="label">He'd cross stars for her 🌟</div>
+      </div>
+
+      <div class="photo-card ella reveal delay-3" data-label="Forever in my heart 💕">
+        <img src="/static/ella4.png" alt="Ella">
+        <div class="label">Forever in my heart 💕</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- LOVE LETTER 2 -->
+  <div class="love-letter reveal">
+    <h2>💌 Still Here</h2>
+    <p>Every scroll brings me closer to what I want to say — that you are the most beautiful chapter of my story.</p>
+    <p>If love were a universe, you'd be every star in it. Every single one.</p>
+    <p style="margin-top:20px; color:var(--cyan); font-style:italic;">— Always yours and forever it will💎</p>
+    <h2><b>i am in love with you💕💕</b></h2>
+  </div>
+
+  <div style="margin-top:40px;">
+    <button class="btn" onclick="goToChat()"><span>Go to Love Chat 💬</span></button>
+    <button class="btn" onclick="goToVoice()"><span>Voice Notes 🎤</span></button>
+  </div>
+
+</section>
+
+
+<!-- ===================================================
+     CHAT PAGE
+=================================================== -->
+<section id="chat" style="display:none;">
+  <h1 class="hero-title">Love Chat 💬</h1>
+
+  <div id="messages">
+    <div class="msg me">💖 Me: I love you more than words can say</div>
+    <div class="msg her">💕 Her: (your response here)</div>
+  </div>
+
+  <div class="inputBox">
+    <textarea id="chatInput" placeholder="Write your love message..."></textarea>
+    <button class="btn" onclick="sendMessage()"><span>Send 💌</span></button>
+  </div>
+
+  <br>
+  <button class="btn" onclick="goHome()"><span>🏠 Home</span></button>
+</section>
+
+
+<!-- ===================================================
+     VOICE PAGE
+=================================================== -->
+<section id="voice" style="display:none;">
+  <h1 class="hero-title">Voice Notes 🎤</h1>
+  <p style="color:rgba(255,255,255,0.5); margin-bottom:30px;">Record your love messages here 💖</p>
+
+  <div id="voiceList">
+    <div class="voice">
+      🎧 Tony: My heart belongs to you ❤️
+      <audio controls></audio>
+    </div>
+    <div class="voice">
+      🎧 Ella: (her voice reply here)
+      <audio controls></audio>
+    </div>
+  </div>
+
+  <button class="btn" onclick="startRecording()"><span>🎙 Record</span></button>
+  <button class="btn"><span>📁 Upload</span></button>
+  <br><br>
+  <button class="btn" onclick="goHome()"><span>🏠 Home</span></button>
+</section>
+
+
+<!-- ===================================================
+     JAVASCRIPT ENGINE
+=================================================== -->
+<script>
+
+/* ============================================================
+   STARS GENERATOR
+============================================================ */
+const starsEl = document.getElementById("stars");
+for(let i=0; i<120; i++){
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left   = Math.random()*100 + "%";
+  s.style.top    = Math.random()*100 + "%";
+  s.style.setProperty("--d", (Math.random()*4+2)+"s");
+  s.style.animationDelay = (Math.random()*6)+"s";
+  starsEl.appendChild(s);
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+const cursor      = document.getElementById("cursor");
+const cursorTrail = document.getElementById("cursor-trail");
+
+document.addEventListener("mousemove", e=>{
+  cursor.style.left      = e.clientX + "px";
+  cursor.style.top       = e.clientY + "px";
+  cursorTrail.style.left = e.clientX + "px";
+  cursorTrail.style.top  = e.clientY + "px";
+});
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+============================================================ */
+window.addEventListener("scroll", ()=>{
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById("scrollBar").style.width = pct + "%";
+});
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+function goHome(){
+  document.getElementById("home").style.display  = "flex";
+  document.getElementById("chat").style.display  = "none";
+  document.getElementById("voice").style.display = "none";
+  setActiveNav(0);
+}
+function goToChat(){
+  document.getElementById("home").style.display  = "none";
+  document.getElementById("chat").style.display  = "flex";
+  document.getElementById("voice").style.display = "none";
+  setActiveNav(1);
+}
+function goToVoice(){
+  document.getElementById("home").style.display  = "none";
+  document.getElementById("chat").style.display  = "none";
+  document.getElementById("voice").style.display = "flex";
+  setActiveNav(2);
+}
+function setActiveNav(i){
+  document.querySelectorAll("nav button").forEach((b,idx)=>{
+    b.classList.toggle("active", idx===i);
+  });
+}
+
+/* ============================================================
+   SCROLL REVEAL ENGINE
+============================================================ */
+const reveals = document.querySelectorAll(".reveal");
+
+function scrollReveal(){
+  const trigger = window.innerHeight * 0.88;
+  reveals.forEach(el=>{
+    const top = el.getBoundingClientRect().top;
+    if(top < trigger) el.classList.add("show");
+  });
+}
+window.addEventListener("scroll", scrollReveal);
+scrollReveal();
+
+/* ============================================================
+   🖼️ IMAGE BLUR SCROLL ENGINE
+============================================================ */
+const photoCards = document.querySelectorAll(".photo-card");
+
+function imageBlurEngine(){
+  const vH = window.innerHeight;
+  photoCards.forEach(card=>{
+    const rect = card.getBoundingClientRect();
+    const center = rect.top + rect.height / 2;
+    const inView = center > vH * 0.05 && center < vH * 0.95;
+    if(inView){
+      card.classList.add("in-view");
+    } else {
+      card.classList.remove("in-view"); // re-blurs on scroll away
+    }
+  });
+}
+window.addEventListener("scroll", imageBlurEngine);
+imageBlurEngine();
+
+/* ============================================================
+   🎵 MUSIC ENGINE — changes track on scroll position
+============================================================ */
+const tracks = [
+  { el: document.getElementById("music1"), name: "♪ Chapter One — Us" },
+  { el: document.getElementById("music2"), name: "♪ Chapter Two — Forever" },
+  { el: document.getElementById("music3"), name: "♪ Chapter Three — Always" },
+];
+
+let currentTrackIdx = -1;
+let muted = false;
+
+function playTrack(idx){
+  if(currentTrackIdx === idx) return;
+
+  // fade out current
+  if(currentTrackIdx >= 0){
+    fadeAudio(tracks[currentTrackIdx].el, "out");
+  }
+
+  currentTrackIdx = idx;
+  const t = tracks[idx];
+
+  if(!muted){
+    t.el.volume = 0;
+    t.el.play().catch(()=>{});
+    fadeAudio(t.el, "in");
+  }
+
+  document.getElementById("musicLabel").textContent = t.name;
+}
+
+function fadeAudio(audioEl, direction){
+  let vol = direction === "in" ? 0 : audioEl.volume;
+  const step = direction === "in" ? 0.03 : -0.03;
+  const target = direction === "in" ? 0.7 : 0;
+
+  const interval = setInterval(()=>{
+    vol = Math.max(0, Math.min(1, vol + step));
+    audioEl.volume = vol;
+    if(vol <= 0 && direction === "out"){
+      audioEl.pause();
+      audioEl.currentTime = 0;
+      clearInterval(interval);
+    }
+    if(vol >= target && direction === "in"){
+      clearInterval(interval);
+    }
+  }, 60);
+}
+
+function toggleMusic(){
+  muted = !muted;
+  document.getElementById("muteIcon").textContent = muted ? "🔇" : "🔊";
+  if(muted){
+    tracks.forEach(t=>{ t.el.pause(); });
+  } else {
+    if(currentTrackIdx >= 0){
+      tracks[currentTrackIdx].el.play().catch(()=>{});
+    }
+  }
+}
+
+// change music based on scroll %
+window.addEventListener("scroll", ()=>{
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  if(pct < 0.33)      playTrack(0);
+  else if(pct < 0.66) playTrack(1);
+  else                playTrack(2);
+});
+
+// start music on first user interaction
+document.addEventListener("click", ()=>{
+  if(currentTrackIdx < 0) playTrack(0);
+}, { once: true });
+
+/* ============================================================
+   💖 HEART PARTICLE ENGINE
+============================================================ */
+const HEARTS = ["💖","💕","💗","💓","✨","💫","🌸"];
+
+setInterval(()=>{
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = HEARTS[Math.floor(Math.random()*HEARTS.length)];
+  h.style.left = Math.random()*100 + "vw";
+  h.style.setProperty("--d", (Math.random()*4+4)+"s");
+  h.style.fontSize = (Math.random()*14+10)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(), 8000);
+}, 600);
+
+/* ============================================================
+   🌌 SCROLL LOVE TEXT ENGINE
+============================================================ */
+const loveLines = [
+  "You are my safe place ❤️",
+  "I fall in love with you more every scroll ✨",
+  "You are my forever 💎",
+  "No matter what, I choose you ❤️",
+  "You make my whole world brighter 🌟",
+];
+
+let lastLoveLine = "";
+
+function triggerFloatingText(text){
+  if(text === lastLoveLine) return;
+  lastLoveLine = text;
+  const div = document.createElement("div");
+  div.className = "floatText";
+  div.textContent = text;
+  document.body.appendChild(div);
+  setTimeout(()=>div.remove(), 3500);
+}
+
+window.addEventListener("scroll", ()=>{
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  if(pct > 0.15) triggerFloatingText(loveLines[0]);
+  if(pct > 0.30) triggerFloatingText(loveLines[1]);
+  if(pct > 0.50) triggerFloatingText(loveLines[2]);
+  if(pct > 0.70) triggerFloatingText(loveLines[3]);
+  if(pct > 0.90) triggerFloatingText(loveLines[4]);
+});
+
+/* ============================================================
+   💬 CHAT SYSTEM
+============================================================ */
+const chatBox = document.getElementById("messages");
+
+function sendMessage(){
+  const input = document.getElementById("chatInput");
+  if(!input) return;
+  const msg = input.value.trim();
+  if(msg === "") return;
+  addMessage("me", msg);
+  saveMessage(msg);
+  input.value = "";
+  setTimeout(()=>{
+    addMessage("her", "💖 I feel you… " + msg +  "too");
+  }, 1000);
+}
+
+function addMessage(type, text){
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+  div.innerText = (type==="me"?"💖 Me: ":"💕 Her: ") + text;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function saveMessage(msg){
+  let data = JSON.parse(localStorage.getItem("loveChat")||"[]");
+  data.push(msg);
+  localStorage.setItem("loveChat", JSON.stringify(data));
+}
+
+function loadMessages(){
+  let data = JSON.parse(localStorage.getItem("loveChat")||"[]");
+  data.forEach(m=>addMessage("me",m));
+}
+loadMessages();
+
+/* ============================================================
+   🎤 VOICE RECORD SYSTEM
+============================================================ */
+let mediaRecorder, audioChunks = [];
+
+async function startRecording(){
+  const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+  mediaRecorder = new MediaRecorder(stream);
+  mediaRecorder.start();
+  audioChunks = [];
+  mediaRecorder.ondataavailable = e=>{ audioChunks.push(e.data); };
+  mediaRecorder.onstop = ()=>{
+    const blob = new Blob(audioChunks,{ type:"audio/webm" });
+    addVoice(URL.createObjectURL(blob));
+  };
+  setTimeout(()=>mediaRecorder.stop(), 5000);
+}
+
+function addVoice(url){
+  const container = document.getElementById("voiceList");
+  const div = document.createElement("div");
+  div.className = "voice";
+  div.innerHTML = `🎧 New Voice Message ❤️<audio controls src="${url}"></audio>`;
+  container.appendChild(div);
+}
+
+/* ============================================================
+   GLOBAL EXPORTS
+============================================================ */
+window.sendMessage    = sendMessage;
+window.startRecording = startRecording;
+window.toggleMusic    = toggleMusic;
+
+</script>
+</body>
+</html>
