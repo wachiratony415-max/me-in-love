@@ -26,7 +26,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: none;
+      cursor: default;
     }
 
     .cursor {
@@ -250,7 +250,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1rem;
       letter-spacing: 0.08em;
-      cursor: none;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -283,7 +283,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.95rem;
       letter-spacing: 0.06em;
-      cursor: none;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
     .btn-love:hover {
@@ -378,6 +378,10 @@
       90%  { opacity: 0.6; }
       100% { opacity: 0; transform: translateY(110vh) rotate(360deg) scale(0.5); }
     }
+    @media (max-width: 768px) {
+      .cursor, .cursor-trail {display: none; }
+    }
+    
   </style>
 </head>
 <body>
