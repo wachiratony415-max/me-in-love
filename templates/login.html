@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Tonie ❤️ Ella</title>
+<title>Tony ❤️ Ella</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@300;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -34,7 +34,7 @@ html,body{
 .bg-photo{
   position:fixed;
   inset:0;
-  background:url ('/static/ella.jpg') center center / cover no-repeat;
+  background:url ('/static/ell.jpg') center center / cover no-repeat;
   z-index:0;
 }
 
@@ -44,8 +44,8 @@ html,body{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%),
-    linear-gradient(160deg, rgba(180,0,80,0.35) 0%, rgba(100,0,50,0.55) 100%);
+    radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.88) 100%),
+    linear-gradient(160deg, rgba(120,0,50,0.55) 0%, rgba(40,0,20,0.80) 100%);
 }
 
 /* ── ANIMATED SHIMMER LAYER ── */
@@ -54,8 +54,8 @@ html,body{
   inset:0;
   z-index:1;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255,100,160,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 70%, rgba(255,60,120,0.14) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(180,40,100,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 70%, rgba(180,20,70,0.10) 0%, transparent 60%);
   animation:shimmerPulse 8s ease-in-out infinite;
 }
 @keyframes shimmerPulse{
@@ -115,9 +115,9 @@ html,body{
   animation:orbFloat ease-in-out infinite;
   pointer-events:none;
 }
-.orb1{width:220px;height:220px;background:rgba(255,80,140,0.2);top:-60px;left:-60px;animation-duration:14s;}
-.orb2{width:180px;height:180px;background:rgba(255,160,200,0.18);bottom:-40px;right:-40px;animation-duration:11s;animation-delay:-5s;}
-.orb3{width:140px;height:140px;background:rgba(200,50,100,0.15);top:40%;left:60%;animation-duration:9s;animation-delay:-3s;}
+.orb1{width:220px;height:220px;background:rgba(180,30,80,0.13);top:-60px;left:-60px;animation-duration:14s;}
+.orb2{width:180px;height:180px;background:rgba(200,60,110,0.10);bottom:-40px;right:-40px;animation-duration:11s;animation-delay:-5s;}
+.orb3{width:140px;height:140px;background:rgba(120,20,50,0.10);top:40%;left:60%;animation-duration:9s;animation-delay:-3s;}
 @keyframes orbFloat{
   0%,100%{transform:translate(0,0) scale(1)}
   33%{transform:translate(20px,-20px) scale(1.08)}
@@ -143,14 +143,14 @@ html,body{
   max-width:380px;
   padding:38px 32px 34px;
   border-radius:28px;
-  background:var(--glass-bg);
-  border:1px solid var(--glass-bdr);
-  backdrop-filter:blur(24px) saturate(1.6);
-  -webkit-backdrop-filter:blur(24px) saturate(1.6);
+  background:rgba(8,0,4,0.72);
+  border:1px solid rgba(200,80,130,0.18);
+  backdrop-filter:blur(28px) saturate(1.4);
+  -webkit-backdrop-filter:blur(28px) saturate(1.4);
   box-shadow:
-    0 8px 48px rgba(180,0,80,0.28),
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 1px 0 rgba(255,200,220,0.2) inset;
+    0 8px 56px rgba(80,0,30,0.55),
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 1px 0 rgba(200,100,150,0.14) inset;
   text-align:center;
   animation:cardIn 1.1s cubic-bezier(0.16,1,0.3,1) both;
   position:relative;
@@ -261,10 +261,10 @@ html,body{
 input{
   width:100%;
   padding:15px 15px 15px 42px;
-  border:1px solid rgba(255,140,180,0.2);
+  border:1px solid rgba(200,80,130,0.18);
   border-radius:14px;
-  background:rgba(255,255,255,0.07);
-  color:rgb(73, 69, 69);
+  background:rgba(0,0,0,0.35);
+  color:#fff;
   font-family:'Quicksand',sans-serif;
   font-size:0.95rem;
   font-weight:500;
@@ -276,9 +276,9 @@ input{
 input::placeholder{color:rgba(255,200,220,0.5);font-weight:300;}
 input:focus{
   outline:none;
-  border-color:rgba(255,120,170,0.55);
-  background:rgba(255,255,255,0.11);
-  box-shadow:0 0 0 3px rgba(255,80,140,0.15), 0 0 18px rgba(255,80,140,0.12);
+  border-color:rgba(255,80,140,0.45);
+  background:rgba(0,0,0,0.45);
+  box-shadow:0 0 0 3px rgba(200,0,80,0.18), 0 0 18px rgba(200,0,80,0.14);
 }
 /* fix iOS autofill ugly yellow */
 input:-webkit-autofill,
@@ -298,7 +298,7 @@ button{
   padding:16px;
   border:none;
   border-radius:50px;
-  background:linear-gradient(130deg, #ff4d8d 0%, #e91e63 60%, #c2185b 100%);
+  background:linear-gradient(130deg, #c2185b 0%, #880e4f 60%, #560b35 100%);
   color:#fff;
   font-family:'Quicksand',sans-serif;
   font-size:1rem;
@@ -308,7 +308,7 @@ button{
   position:relative;
   overflow:hidden;
   transition:transform 0.18s, box-shadow 0.25s;
-  box-shadow:0 4px 22px rgba(200,0,80,0.4), 0 1px 0 rgba(255,200,220,0.2) inset;
+  box-shadow:0 4px 22px rgba(100,0,40,0.55), 0 1px 0 rgba(200,80,130,0.15) inset;
   -webkit-appearance:none;
   appearance:none;
   touch-action:manipulation;
@@ -406,9 +406,9 @@ button:active{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.95);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
   opacity:0;
   pointer-events:none;
   transition:opacity 0.6s ease;
@@ -655,3 +655,4 @@ function burstHearts(){
 
 </body>
 </html>
+
